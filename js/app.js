@@ -1,7 +1,7 @@
 (function() {
     var $searchTitle; // Store the input value
     var $searchYear; // Store the input year
-    var thisTitle, thisYear, thisIMDB; // Get clicked mover's title, year and imdbID
+    var thisIMDB;
     var $movies = $("#movies");
 
     // Construct function to add filter by year
@@ -81,7 +81,7 @@
 		};
 
     // Construct the function to search movie's description, including title, year, poster, plot information and IMDB rating
-		var descriptionSearch = function() {
+		var descriptionSearch = function(thisTitle, thisYear) {
 			var amdbapi = "https://www.omdbapi.com/?callback?";
 			var amdbapiOptions = { // Declare the date type to get from Omdb API
         t: thisTitle, // Title for searching movie
@@ -108,9 +108,9 @@
     // When click the poster image, display movie description
     $(document).on("click", "div.poster-wrap a", function(e) {
       e.preventDefault();
-			thisTitle = $(this).parent().next().text(); // Get the clicked movie's title
-      thisYear = $(this).parent().next().next().text(); // Get the clicked movie's year
-			descriptionSearch();
+			var thisTitle = $(this).parent().next().text(); // Get the clicked movie's title
+      var thisYear = $(this).parent().next().next().text(); // Get the clicked movie's year
+			descriptionSearch(thisTitle, thisYear);
 			console.log(thisTitle, thisYear);
     });
 
